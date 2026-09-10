@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SICAIS - Presentación del Proyecto</title>
+    <style>
+        /* Estilos Generales */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 30px 20px;
+        }
+
+        /* Título Principal */
+        .header-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header-title h1 {
+            font-size: 3.5rem;
+            color: #b81d65;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Contenedor Grid Principal */
+        .sicais-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            grid-template-rows: 350px 180px;
+            grid-template-areas:
+                "pdf   video image"
+                "audio audio image";
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Estilo Base para las Ventanas Separadas */
+        .window-card {
+            background-color: #b81d65;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            color: #ffffff;
+            /* Recreación del borde grueso violeta del boceto (Derecha y Abajo) */
+            box-shadow: 12px 12px 0px #38063a;
+        }
+
+        .window-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .media-content {
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Asignación de Posiciones según el Boceto */
+        .card-pdf {
+            grid-area: pdf;
+        }
+
+        .card-video {
+            grid-area: video;
+        }
+
+        .card-image {
+            grid-area: image;
+        }
+
+        .card-audio {
+            grid-area: audio;
+        }
+
+        /* Ajustes específicos de elementos */
+        embed, iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        audio {
+            width: 100%;
+            outline: none;
+        }
+
+        /* Adaptabilidad para pantallas móviles */
+        @media (max-width: 900px) {
+            .sicais-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                grid-template-areas:
+                    "pdf"
+                    "video"
+                    "image"
+                    "audio";
+            }
+            .window-card {
+                height: 350px;
+            }
+            .card-audio {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-title">
+        <h1>SICAIS</h1>
+    </header>
+
+    <main class="sicais-grid">
+        <!-- Ventana 1: PDF -->
+        <section class="window-card card-pdf">
+            <h2>PDF</h2>
+            <div class="media-content">
+                <embed src="documento_sicais.pdf" type="application/pdf">
+            </div>
+        </section>
+
+        <!-- Ventana 2: Video -->
+        <section class="window-card card-video">
+            <h2>Video</h2>
+            <div class="media-content">
+                <video controls>
+                    <source src="demostracion_sicais.mp4" type="video/mp4">
+                    Tu navegador no soporta reproducción de video.
+                </video>
+            </div>
+        </section>
+
+        <!-- Ventana 3: Imagen (Ocupa la columna derecha de arriba a abajo) -->
+        <section class="window-card card-image">
+            <h2>Imagen</h2>
+            <div class="media-content">
+                <img src="esquema_sicais.jpg" alt="Esquema del proyecto SICAIS">
+            </div>
+        </section>
+
+        <!-- Ventana 4: Audio (Ocupa el ancho inferior debajo de PDF y Video) -->
+        <section class="window-card card-audio">
+            <h2>Audio</h2>
+            <div class="media-content">
+                <audio controls>
+                    <source src="explicacion_sicais.mp3" type="audio/mpeg">
+                    Tu navegador no soporta reproducción de audio.
+                </audio>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
