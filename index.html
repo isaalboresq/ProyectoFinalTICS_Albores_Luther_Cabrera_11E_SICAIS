@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SICAIS - Presentación del Proyecto</title>
+    <title>SICAIS</title>
     <style>
         /* Estilos Generales */
         * {
@@ -14,30 +14,71 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            padding: 30px 20px;
+            /* Fondo con degradado profundo e iluminación dinámica */
+            background: linear-gradient(135deg, #0d021a 0%, #2a0835 40%, #4a0e4e 75%, #180326 100%);
+            background-attachment: fixed;
+            color: #ffffff;
+            padding: 40px 20px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Título Principal */
+        /* Detalle decorativo de fondo (esferas de luz difuminadas) */
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(230, 57, 142, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body::before {
+            top: -50px;
+            left: -50px;
+        }
+
+        body::after {
+            bottom: -50px;
+            right: -50px;
+        }
+
+        /* Título Principal con degradado de texto y efecto Neón */
         .header-title {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
         }
 
         .header-title h1 {
-            font-size: 3.5rem;
-            color: #b81d65;
-            font-weight: 800;
-            letter-spacing: 4px;
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 6px;
             text-transform: uppercase;
+            /* Texto con degradado cromado/brillante */
+            background: linear-gradient(180deg, #ffffff 0%, #ff70a6 50%, #b81d65 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            drop-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            filter: drop-shadow(0 0 12px rgba(230, 57, 142, 0.4));
+        }
+
+        .header-title p {
+            font-size: 1.1rem;
+            color: #e0b0df;
+            letter-spacing: 2px;
+            margin-top: 5px;
+            text-transform: uppercase;
+            opacity: 0.8;
         }
 
         /* Contenedor Grid Principal */
         .sicais-grid {
             display: grid;
             grid-template-columns: 1fr 1.5fr 1fr;
-            grid-template-rows: 350px 180px;
+            grid-template-rows: 360px 190px;
             grid-template-areas:
                 "pdf   video image"
                 "audio audio image";
@@ -48,31 +89,46 @@
 
         /* Estilo Base para las Ventanas Separadas */
         .window-card {
-            background-color: #b81d65;
-            border-radius: 8px;
-            padding: 20px;
+            background: rgba(184, 29, 101, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 22px;
             display: flex;
             flex-direction: column;
             color: #ffffff;
-            /* Recreación del borde grueso violeta del boceto (Derecha y Abajo) */
-            box-shadow: 12px 12px 0px #38063a;
+            /* Borde retro en perspectiva con sombra difusa */
+            box-shadow: 10px 10px 0px #1a021c, 0 15px 35px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Efecto Interactivo al pasar el cursor (Hover) */
+        .window-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 14px 14px 0px #1a021c, 0 20px 40px rgba(230, 57, 142, 0.3);
+            border-color: rgba(255, 255, 255, 0.35);
         }
 
         .window-card h2 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin-bottom: 15px;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .media-content {
             width: 100%;
             height: 100%;
-            border-radius: 4px;
+            border-radius: 8px;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         /* Asignación de Posiciones según el Boceto */
@@ -103,19 +159,25 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 4px;
+            border-radius: 6px;
         }
 
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 4px;
+            border-radius: 6px;
+            transition: transform 0.5s ease;
+        }
+
+        .card-image:hover img {
+            transform: scale(1.02);
         }
 
         audio {
-            width: 100%;
+            width: 90%;
             outline: none;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
         }
 
         /* Adaptabilidad para pantallas móviles */
@@ -130,10 +192,13 @@
                     "audio";
             }
             .window-card {
-                height: 350px;
+                height: 380px;
             }
             .card-audio {
                 height: 180px;
+            }
+            .header-title h1 {
+                font-size: 2.8rem;
             }
         }
     </style>
@@ -142,12 +207,13 @@
 
     <header class="header-title">
         <h1>SICAIS</h1>
+        <p>Sistema de Control y Automatización</p>
     </header>
 
     <main class="sicais-grid">
         <!-- Ventana 1: PDF -->
         <section class="window-card card-pdf">
-            <h2>Word/PDF</h2>
+            <h2>📄 Word/PDF</h2>
             <div class="media-content">
                 <embed src="documento_sicais.pdf" type="application/pdf">
             </div>
@@ -155,7 +221,7 @@
 
         <!-- Ventana 2: Video -->
         <section class="window-card card-video">
-            <h2>Demostración Tinkercad</h2>
+            <h2>🎬 Demostración Tinkercad</h2>
             <div class="media-content">
                 <video controls>
                     <source src="demostracion_sicais.mp4" type="video/mp4">
@@ -164,17 +230,17 @@
             </div>
         </section>
 
-        <!-- Ventana 3: Imagen (Ocupa la columna derecha de arriba a abajo) -->
+        <!-- Ventana 3: Imagen (Ocupa la columna derecha) -->
         <section class="window-card card-image">
-            <h2>Infografía</h2>
+            <h2>📊 Infografía</h2>
             <div class="media-content">
-                <img src="esquema_sicais.jpeg" alt="Esquema del proyecto SICAIS">
+                <img src="esquemasicais.jpeg" alt="Esquema del proyecto SICAIS">
             </div>
         </section>
 
-        <!-- Ventana 4: Audio (Ocupa el ancho inferior debajo de PDF y Video) -->
+        <!-- Ventana 4: Audio (Ocupa el ancho inferior) -->
         <section class="window-card card-audio">
-            <h2>Podcast</h2>
+            <h2>🎙️ Podcast</h2>
             <div class="media-content">
                 <audio controls>
                     <source src="explicacion_sicais.mp3" type="audio/mpeg">
